@@ -98,7 +98,5 @@ public class AnimalDomestico implements AnimalInterface {
 		return "AnimalDomestico [nombre=" + nombre + ", raza=" + raza + ", edad=" + edad + ", tamanio=" + tamanio
 				+ ", genero=" + genero + "]";
 	}
-	
-	
 
 }

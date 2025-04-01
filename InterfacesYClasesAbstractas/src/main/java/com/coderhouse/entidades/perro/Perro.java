@@ -4,33 +4,9 @@ import com.coderhouse.entidades.AnimalDomestico;
 
 public class Perro extends AnimalDomestico {
 
-	@Override
-	public void comer() {
-		System.out.println("Mi perro "+ getNombre() + "esta comiendo!");
-
+	public Perro(String nombre, String raza, int edad, String tamanio, String genero) {
+		super(nombre, raza, edad, tamanio, genero);
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void moverse() {
-		System.out.println("Mi perro "+ getNombre() + "se esta moviendo!");
-
-	}
-
-	@Override
-	public void emitirSonido() {
-		System.out.println("Mi perro "+ getNombre() + "esta ladrando!");
-
-	}
-
-	@Override
-	public boolean estaVivo() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public void dormir() {
-		System.out.println("Mi perro "+ getNombre() + "no está durmiendo!");
-
-	}
 }

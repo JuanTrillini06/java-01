@@ -1,0 +1,104 @@
+package com.coderhouse.entidades;
+
+import com.coderhouse.interfaces.AnimalInterface;
+
+public class AnimalDomestico implements AnimalInterface {
+	
+	private String nombre;
+	
+	private String raza;
+	
+	private int edad;
+	
+	private String tamanio;
+	
+	private String genero;
+	
+	public AnimalDomestico(String nombre, String raza, int edad, String tamanio, String genero) {
+		super();
+		this.nombre = nombre;
+		this.raza = raza;
+		this.edad = edad;
+		this.tamanio = tamanio;
+		this.genero = genero;
+	}
+
+	@Override
+	public void comer() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void moverse() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void emitirSonido() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean estaVivo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void dormir() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getRaza() {
+		return raza;
+	}
+
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public String getTamanio() {
+		return tamanio;
+	}
+
+	public void setTamanio(String tamanio) {
+		this.tamanio = tamanio;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	@Override
+	public String toString() {
+		return "AnimalDomestico [nombre=" + nombre + ", raza=" + raza + ", edad=" + edad + ", tamanio=" + tamanio
+				+ ", genero=" + genero + "]";
+	}
+	
+	
+
+}

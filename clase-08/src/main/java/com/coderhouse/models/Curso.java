@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +33,9 @@ public class Curso {
 				inverseJoinColumns = @JoinColumn(name = "alumno_id")
 			)
 	private List<Alumno> alumnos = new ArrayList<>();
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Categoria categorias;
 
 	public Curso() {
 		super();
@@ -57,6 +61,24 @@ public class Curso {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	
+
+	public List<Alumno> getAlumnos() {
+		return alumnos;
+	}
+
+	public void setAlumnos(List<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
+	public Categoria getCategoria() {
+		return categorias;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categorias = categoria;
 	}
 
 	@Override

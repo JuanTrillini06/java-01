@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.coderhouse.dao.DaoFactory;
 import com.coderhouse.models.Alumno;
+import com.coderhouse.models.Categoria;
 import com.coderhouse.models.Curso;
 
 @SpringBootApplication
@@ -24,30 +25,46 @@ public class Clase08Application implements CommandLineRunner{
 		
 		try {
 			
-			Curso curso1 = new Curso("Java");
-			Curso curso2 = new Curso("JavaScript");
-			Curso curso3 = new Curso("React");
-			Curso curso4 = new Curso("Angular");
-			Curso curso5 = new Curso("SQL");
+			Categoria categoria1 = new Categoria("Programacion FrontEnd");
+			Categoria categoria2 = new Categoria("Programacion BackEnd");
+			Categoria categoria3 = new Categoria("Programacion Data science");
+			
+			Curso curso1 = new Curso("Java"); //Back
+			Curso curso2 = new Curso("JavaScript"); //Front
+			Curso curso3 = new Curso("React"); //Front
+			Curso curso4 = new Curso("Angular"); //Front
+			Curso curso5 = new Curso("SQL"); // Data
+			Curso curso6 = new Curso("MongoDB"); // Data
 			
 			Alumno alumno1 = new Alumno("Alejandro", "Di Stefano", 22333666, "L22333666", 49);
-			Alumno alumno2 = new Alumno("Alejandro", "Di Stefano", 33555888, "L33555888", 49);
-			Alumno alumno3 = new Alumno("Alejandro", "Di Stefano", 44222666, "L44222666", 49);
-			Alumno alumno4 = new Alumno("Alejandro", "Di Stefano", 77999444, "L77999444", 49);
-			Alumno alumno5 = new Alumno("Alejandro", "Di Stefano", 11555777, "L11555777", 49);
+			Alumno alumno2 = new Alumno("Juan", "Trillini", 33555888, "L33555888", 23);
+			Alumno alumno3 = new Alumno("Octavio", "Conrero", 44222666, "L44222666", 23);
+			Alumno alumno4 = new Alumno("Felipe", "Ceballos", 77999444, "L77999444", 23);
+			Alumno alumno5 = new Alumno("Jeronimo", "Carrillo", 11555777, "L11555777", 21);
 			
+			dao.persistirCategoria(categoria1);
+			dao.persistirCategoria(categoria2);
+			dao.persistirCategoria(categoria3);
 			
 			dao.persistirCurso(curso1);
 			dao.persistirCurso(curso2);
 			dao.persistirCurso(curso3);
 			dao.persistirCurso(curso4);
 			dao.persistirCurso(curso5);
+			dao.persistirCurso(curso6);
 			
 			dao.persistirAlumno(alumno1);
 			dao.persistirAlumno(alumno2);
 			dao.persistirAlumno(alumno3);
 			dao.persistirAlumno(alumno4);
 			dao.persistirAlumno(alumno5);
+			
+			dao.asignarCategoriaCurso(curso1.getId(), categoria2.getId() );
+			dao.asignarCategoriaCurso(curso2.getId(), categoria1.getId() );
+			dao.asignarCategoriaCurso(curso3.getId(), categoria2.getId() );
+			dao.asignarCategoriaCurso(curso4.getId(), categoria2.getId() );
+			dao.asignarCategoriaCurso(curso5.getId(), categoria3.getId() );
+			dao.asignarCategoriaCurso(curso6.getId(), categoria3.getId() );
 			
 		}catch(Exception err) {
 			err.printStackTrace(System.err);

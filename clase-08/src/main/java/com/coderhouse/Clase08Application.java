@@ -1,5 +1,8 @@
 package com.coderhouse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +26,7 @@ public class Clase08Application implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		try {
+		try {		
 			
 			Categoria categoria1 = new Categoria("Programacion FrontEnd");
 			Categoria categoria2 = new Categoria("Programacion BackEnd");
@@ -41,7 +44,7 @@ public class Clase08Application implements CommandLineRunner{
 			Alumno alumno3 = new Alumno("Octavio", "Conrero", 44222666, "L44222666", 23);
 			Alumno alumno4 = new Alumno("Felipe", "Ceballos", 77999444, "L77999444", 23);
 			Alumno alumno5 = new Alumno("Jeronimo", "Carrillo", 11555777, "L11555777", 21);
-			
+			/*
 			dao.persistirCategoria(categoria1);
 			dao.persistirCategoria(categoria2);
 			dao.persistirCategoria(categoria3);
@@ -65,6 +68,17 @@ public class Clase08Application implements CommandLineRunner{
 			dao.asignarCategoriaCurso(curso4.getId(), categoria2.getId() );
 			dao.asignarCategoriaCurso(curso5.getId(), categoria3.getId() );
 			dao.asignarCategoriaCurso(curso6.getId(), categoria3.getId() );
+			*/
+		
+			
+			List<Long> cursosIdParaAlumno1 = new ArrayList<>();
+					cursosIdParaAlumno1.add(curso1.getId());
+					cursosIdParaAlumno1.add(curso2.getId());
+					cursosIdParaAlumno1.add(curso5.getId());
+					
+			dao.inscribirAUnAlumnoEnUnCursoOEnVariosCursos(alumno1.getId(), cursosIdParaAlumno1);
+			
+			
 			
 		}catch(Exception err) {
 			err.printStackTrace(System.err);

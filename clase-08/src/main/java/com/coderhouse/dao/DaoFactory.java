@@ -1,5 +1,7 @@
 package com.coderhouse.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.coderhouse.models.Alumno;
@@ -53,6 +55,16 @@ public class DaoFactory {
 	}
 	
 	@Transactional
+	public Alumno getAlumnoById(Long alumnoId) throws Exception{
+		try {
+			TypedQuery<Alumno> query = em.createQuery("SELECT a FROM Alumno a WHERE a.id = :id", Alumno.class);
+			return query.setParameter("id", alumnoId).getSingleResult();
+		}catch(Exception e) {
+			throw new Exception("El alumno no Existe.!");
+		}
+	}
+	
+	@Transactional
 	public void asignarCategoriaCurso(Long cursoId, Long categoriaId) throws Exception{
 		
 		Curso curso = getCursoById(cursoId);
@@ -74,4 +86,35 @@ public class DaoFactory {
 		
 	}
 	
+	@Transactional
+	public void inscribirAUnAlumnoEnUnCursoOEnVariosCursos(Long alumnoId, List<Long> cursoIds) throws Exception {
+		
+		Alumno alumno = getAlumnoById(alumnoId);
+		if(alumno == null) {
+			throw new Exception("El Alumno con ID: "+ alumnoId + "no Existe");
+		}
+		
+		for (Long cursoId : cursoIds) {
+			
+			Curso curso = getCursoById(cursoId);
+			if (curso == null) {
+				throw new Exception("El Curso con ID: "+ cursoId + "no Existe");
+			}
+			
+			 // Asociar al alumno al con el curso
+			if(!curso.getAlumnos().contains(alumno)) {
+				curso.getAlumnos().add(alumno);
+			}
+			
+			 // Opcional: Asociar curso al alumno - mantener bidireccionalidad Sync
+			if(alumno.getCursos().contains(curso)) {
+				alumno.getCursos().add(curso);
+			}
+			
+			em.merge(curso);
+		}
+		
+		em.merge(alumno);
+		em.flush();
+	}
 }

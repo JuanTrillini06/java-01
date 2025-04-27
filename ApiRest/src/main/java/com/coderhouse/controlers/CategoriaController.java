@@ -5,15 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coderhouse.models.Categoria;
-import com.coderhouse.repository.CategoriaRepository;
+import com.coderhouse.services.CategoriaServicio;
 
 
 
@@ -22,31 +24,53 @@ import com.coderhouse.repository.CategoriaRepository;
 public class CategoriaController {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoriaServicio categoriaServicio;
 
 	@GetMapping
 	public List<Categoria> getAllCategoria(){
-		return categoriaRepository.findAll();
+		return categoriaServicio.findAll();
 	}
 	
 	
 	@GetMapping("/{categoriaId}")
 	public ResponseEntity<Categoria> getCategoriaById(@PathVariable Long categoriaId){
 		try {
-			if(categoriaRepository.existsById(categoriaId)) {
-				Categoria categoria = categoriaRepository.findById(categoriaId).get();
-				return ResponseEntity.ok(categoria); //200
-			}else {
-				return ResponseEntity.notFound().build(); //404
-			}
+			Categoria categoria= categoriaServicio.findById(categoriaId);
+			return ResponseEntity.ok(categoria); //200
+		}catch(IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
 		}catch(Exception err) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
 		}
 	}
 	
-	
 	@PostMapping("/create")
-	public Categoria createCurso(@RequestBody Categoria categoria) {
-		return categoriaRepository.save(categoria);
+	public Categoria createCategoria(@RequestBody Categoria categoria) {
+		return categoriaServicio.save(categoria);
 	}
+	
+	@PutMapping("/{categoriaId}")
+	public ResponseEntity<Categoria> updateCategoriaById(@PathVariable Long categoriaId, @RequestBody Categoria categoriaActualizado){
+		try {
+			Categoria categoria = categoriaServicio.update(categoriaId, categoriaActualizado);
+			return ResponseEntity.ok(categoria); //200
+		}catch(IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
+		}catch(Exception err) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
+		}
+	}
+	
+	@DeleteMapping("/{categoriaId}")
+	public ResponseEntity<Void> deleteCategoriaById(@PathVariable Long categoriaId){
+		try {
+			categoriaServicio.deleteById(categoriaId);
+			return ResponseEntity.noContent().build(); //404
+		}catch(IllegalArgumentException err) {
+			return ResponseEntity.notFound().build(); //404
+		}catch(Exception err) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500
+		}
+	}
+	
 }
